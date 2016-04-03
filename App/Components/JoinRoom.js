@@ -11,13 +11,7 @@ import React, {
   AsyncStorage
 } from 'react-native';
 
-import {socketUrl} from '../config.js';
-
-window.navigator.userAgent = "react-native";
-var io = require('socket.io-client/socket.io') ,
-    socket = io(socketUrl, {
-      transports: ['websocket']
-    });
+import {socket} from '../socket.js';
 
 class JoinRoom extends Component {
   
@@ -46,7 +40,8 @@ class JoinRoom extends Component {
         'You provided an invalid roomCode and/or username');
     } 
     else {
-
+        var _this = this;
+      
         socket.emit("joinRoom", {
           roomName: this.state.roomCode,
           username: this.state.username
@@ -61,7 +56,7 @@ class JoinRoom extends Component {
                 AsyncStorage.setItem("roomCode", this.state.roomCode);
               })
               .then(function () {
-                this.props.navigator.push({
+                _this.props.navigator.push({
                   id: 'Lobby',
                   name: 'Lobby'
                 });

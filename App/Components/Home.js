@@ -1,4 +1,6 @@
 import React, {
+  Alert, 
+  AsyncStorage, 
   Component,
   StyleSheet,
   Image,
@@ -8,18 +10,36 @@ import React, {
   View
 } from 'react-native';
 
+import {socket} from '../socket.js';
+
 class Home extends Component {
-  changeRoute (row){
+  
+  joinRoom (row){ 
     this.props.navigator.push({
       id: 'JoinRoom',
       name: 'JoinRoom'
     });
   }
 
-  changeRoute2 (row){
-    this.props.navigator.push({
-      id: 'Lobby',
-      name: 'Lobby'
+  createRoom (row){
+    var _this = this;
+    
+    socket.emit("createRoom", function (data) {
+      if (data.hasOwnProperty("error")) {
+        Alert.alert('An error occured', 'An error occured');
+        return;
+      }
+      AsyncStorage.setItem("username", "traplord")
+        .then(function () {
+          return AsyncStorage.setItem("roomCode", data);
+        })
+        .then(function () {
+          _this.props.navigator.push({
+            id: 'Lobby',
+            name: 'Lobby'
+          });
+        })
+        .done();
     });
   }
 
@@ -30,10 +50,10 @@ class Home extends Component {
            source={require('./../../assets/Logo.png')}>
         </Image>
         <View style={styles.buttons}>
-          <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute(e)}}>
+          <TouchableHighlight style={styles.button} onPress={e => {this.joinRoom(e)}}>
               <Text style={styles.btnText}>JOIN A ROOM</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button2} onPress={e => {this.changeRoute2(e)}}>
+          <TouchableHighlight style={styles.button2} onPress={e => {this.createRoom(e)}}>
               <Text style={styles.btnText}>CREATE A ROOM</Text>
           </TouchableHighlight>
         </View>
