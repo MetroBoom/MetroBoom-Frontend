@@ -142,11 +142,12 @@ const styles = StyleSheet.create({
     flex: 2,
     fontWeight: 'bold',
     textAlign: 'left',
-    marginLeft: 10
+    marginLeft: 10,
+    marginTop: 6
   },
   text2: {
     color: '#fff',
-    fontSize: 22,
+    fontSize: 28,
     flex: 1,
     fontWeight: 'bold',
     textAlign: 'right',
@@ -177,7 +178,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 80,
     width: 80,
-    marginTop: 18,
+    marginTop: 10,
+    marginBottom: 10,
     resizeMode: 'contain',
     alignSelf: 'center',
     alignItems: 'center'
