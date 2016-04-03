@@ -79,9 +79,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: .3,
-    textAlign: 'center',
     backgroundColor: '#9139e3',
-    color: '#fff'
   },
   btnText: {
     fontSize: 22,

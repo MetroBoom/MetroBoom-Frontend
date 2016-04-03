@@ -63,20 +63,14 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    fontSize: 25,
-    textAlign: 'center',
     justifyContent: 'center',
     backgroundColor: '#9238e1',
-    color: '#fff'
   },
   button2: {
     flex: 1,
-    fontSize: 25,
-    textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#b161fc',
-    color: '#fff'
   },
   btnText: {
     flex: 1,

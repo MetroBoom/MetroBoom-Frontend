@@ -56,7 +56,7 @@ var Lobby  = React.createClass({
   renderFooter: function () {
     <View style={styles.footer}>
       <TouchableHighlight>
-        <Image style={styles.arrows}
+        <Image style={styles.play}
                source={require('./../../assets/Play.png')}
         >
       </Image>
@@ -125,6 +125,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center'
   },
+  play:{
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    height: 80,
+    width: 80,
+    marginTop: 18,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    alignItems: 'center'
+  },
   header: {
     flex: 1.5,
     height: 40,
@@ -157,9 +169,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1.5,
+    height: 40,
     flexDirection: 'row',
-    backgroundColor: '#c72a7e',
-    color: '#fff'
+    backgroundColor: '#c72a7e'
   },
 
   player: {
