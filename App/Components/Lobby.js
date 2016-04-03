@@ -1,5 +1,5 @@
 import React, {
-  AsyncStorage, 
+  AsyncStorage,
   Component,
   StyleSheet,
   Image,
@@ -12,24 +12,25 @@ import React, {
 } from 'react-native';
 
 import {socket} from '../socket.js';
+var AudioPlayer = require('react-native-audioplayer');
 
 var ProgressBar = require('ProgressBarAndroid');
 
 var Lobby  = React.createClass({
-  
+
   getInitialState: function () {
     return {
-     roomCode: "", 
+     roomCode: "",
      songs: []
     };
   },
-    
+
   getMusicListing: function () {
     socket.emit("musicListing", function (musicList) {
         var musicListMapped = musicList.map(function (musicObj) {
             return {
               id: musicObj.id,
-              name: musicObj.musicName, 
+              name: musicObj.musicName,
               torrentLink: musicObj.torrentLink,
               username: musicObj.username,
               voteCount: musicObj.voteCount,
@@ -39,15 +40,19 @@ var Lobby  = React.createClass({
         this.setState(musicListMapped);
     })
   },
-  
+
   componentDidMount: function () {
+    socket.on('musicListing', function (list) {
+      var current = list[0].musicName + '.mp3';
+      AudioPlayer.play(current);
+    });
     var _this = this;
     AsyncStorage
       .getItem("roomCode")
       .then(function (roomCode) {
         _this.setState({roomCode: roomCode});
       });
-      
+
     this.getMusicListing();
   },
 

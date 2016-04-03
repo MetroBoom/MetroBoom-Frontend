@@ -22,43 +22,55 @@ var UserMusic  = React.createClass({
     return {
      userSongs: [
        {
-         name: 'Alright',
+         name: 'dejavu',
          artist: 'Kendrick Lamar',
          album: 'To Pimp A Butterfly',
          isLoading: true
        },
        {
-         name: 'Nas is Like',
+         name: 'londonbridge',
          artist: 'Nas',
          album: 'It was Written',
          isLoading: false
        },
        {
-         name: 'Izzo',
+         name: 'marsoc',
          artist: 'Jay-Z',
          album: 'The Blueprint',
          isLoading: false
        },
        {
-         name: 'Joey BadA$$',
+         name: 'memoriesfaded',
          artist: 'Christ Conscience',
          album: 'B4.Da.BadA$$',
          isLoading: false
        },
        {
-         name: 'Curren$y',
+         name: 'minutewarning',
          artist: 'Winning',
          album: 'Cathedral',
          isLoading: false
        },
        {
-         name: 'Da Mob',
+         name: 'ontheway',
          artist: 'Li\'l Wayne',
          album: 'Tha Carter 2',
          isLoading: false
        },
        {
-         name: 'Hustla Music',
+         name: 'pushit',
+         artist: 'Li\'l Wayne',
+         album: 'Tha Carter 2',
+         isLoading: false
+       },
+       {
+         name: 'selfish',
+         artist: 'Li\'l Wayne',
+         album: 'Tha Carter 2',
+         isLoading: false
+       },
+       {
+         name: 'talkshow',
          artist: 'Li\'l Wayne',
          album: 'Tha Carter 2',
          isLoading: false
@@ -83,11 +95,10 @@ var UserMusic  = React.createClass({
   },
 
   onTouch: function (song) {
-    console.log(this.state.userSongs[song].name);
     socket.emit('addMusic', {
       torrentLink: this.sign(this.state.userSongs[song].name),
       musicName: this.state.userSongs[song].name
-    })
+    });
   },
 
 
