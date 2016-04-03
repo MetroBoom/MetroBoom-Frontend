@@ -55,7 +55,12 @@ var Lobby  = React.createClass({
 
   renderFooter: function () {
     <View style={styles.footer}>
-      <Text>PlayButton</Text>
+      <TouchableHighlight>
+        <Image style={styles.arrows}
+               source={require('./../../assets/Play.png')}
+        >
+      </Image>
+      </TouchableHighlight>
     </View>
   },
 

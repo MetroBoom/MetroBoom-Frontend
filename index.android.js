@@ -46,11 +46,3 @@ const styles = StyleSheet.create({
   }
 });
 AppRegistry.registerComponent('Metro', () => Metro);
-
-// render() {
-//   return (
-//     <View style={styles.container}>
-//       <Home></Home>
-//     </View>
-//   );
-// }
