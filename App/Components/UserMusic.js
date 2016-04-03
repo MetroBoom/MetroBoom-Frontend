@@ -135,14 +135,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  text2: {
-    color: '#fff',
-    fontSize: 28,
-    flex: 1,
-    fontWeight: 'bold',
-    textAlign: 'right',
-    marginRight: 10
+    textAlign: 'center',
+    marginTop: 20
   },
   arrows: {
     flex: 1,
@@ -152,25 +146,6 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     marginTop: 18,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    alignItems: 'center'
-  },
-  playContain:{
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  play:{
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    height: 80,
-    width: 80,
-    marginTop: 10,
-    marginBottom: 10,
     resizeMode: 'contain',
     alignSelf: 'center',
     alignItems: 'center'
@@ -199,21 +174,6 @@ const styles = StyleSheet.create({
     borderColor: '#DDD',
     flexDirection: 'row'
   },
-  activeSong: {
-    flex: 1,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: '#000',
-    alignItems: 'center'
-  },
-  activeInfo: {
-    flex: 3,
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    alignSelf: 'flex-start',
-    paddingLeft: 20
-  },
   info: {
     flex: 3,
     alignItems: 'flex-start',
@@ -226,14 +186,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'column',
     backgroundColor: '#c72a7e'
-  },
-
-  player: {
-    flex: .2,
-    alignSelf: 'flex-end',
-    flexDirection: 'row',
-    backgroundColor: '#c72a7e'
-  },
+  }
 });
 
 export default UserMusic;
