@@ -10,9 +10,6 @@ import React, {
   View
 } from 'react-native';
 
-var Sound = require('react-native-audioplayer');
-Sound.play('marsoc.mp3')
-
 import {socket} from '../socket.js';
 
 class Home extends Component {
