@@ -9,7 +9,9 @@
     "node-torrent": "^0.2.1",
     "react": "^0.14.8",
     "react-native": "^0.22.2",
+    "react-native-audioplayer": "^0.2.0",
     "react-native-material-design": "^0.3.3",
+    "react-native-sound": "^0.7.3",
     "react-native-vector-icons": "^1.3.3",
     "socket.io-client": "^1.4.5",
     "webtorrent": "0.90.0"
