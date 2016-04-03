@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   Input:{
     color: '#fff',
     fontSize: 20,
-    marginBottom: 40,
+    marginBottom: 20,
     textAlign: 'center',
     justifyContent: 'center'
   },
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   button: {
-    flex: .3,
+    flex: 1,
     backgroundColor: '#9139e3',
   },
   btnText: {
