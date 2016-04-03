@@ -1,4 +1,5 @@
 import React, {
+  Alert,
   Component,
   StyleSheet,
   Image,
@@ -6,22 +7,69 @@ import React, {
   TextInput,
   Navigator,
   TouchableHighlight,
-  View
+  View, 
+  AsyncStorage
 } from 'react-native';
 
+import {socketUrl} from '../config.js';
+
+window.navigator.userAgent = "react-native";
+var io = require('socket.io-client/socket.io') ,
+    socket = io(socketUrl, {
+      transports: ['websocket']
+    });
+
 class JoinRoom extends Component {
-  changeRoute (row){
+  
+  constructor (props) {
+    super(props);
+    this.state = {
+      username: "",
+      roomCode: ""
+    };
+  }
+  
+  goToHome (row){
     this.props.navigator.push({
       id: 'Home',
       name: 'Home'
     });
   }
 
-  changeRoute2 (row){
-    this.props.navigator.push({
-      id: 'Lobby',
-      name: 'Lobby'
-    });
+  goToLobby (row){
+    if (typeof this.state.roomCode !== "string" || 
+        typeof this.state.username !== "string" || 
+        this.state.roomCode.length === 0 || 
+        this.state.username.length === 0) {
+      Alert.alert(
+        'Invalid roomCode and username',
+        'You provided an invalid roomCode and/or username');
+    } 
+    else {
+
+        socket.emit("joinRoom", {
+          roomName: this.state.roomCode,
+          username: this.state.username
+        }, function (data) {
+          if (typeof data === "object" && 
+              data.hasOwnProperty('error')) {
+            Alert.alert('Error', data.error);
+            return;
+          } else {
+            AsyncStorage.setItem("username", this.state.username)
+              .then(function () {
+                AsyncStorage.setItem("roomCode", this.state.roomCode);
+              })
+              .then(function () {
+                this.props.navigator.push({
+                  id: 'Lobby',
+                  name: 'Lobby'
+                });
+              })
+              .done();
+          }
+        });
+    }
   }
 
   render() {
@@ -31,19 +79,22 @@ class JoinRoom extends Component {
         <View style={styles.form}>
           <Text style={styles.formText}>INPUT ROOM CODE</Text>
           <TextInput style={styles.Input}
-                     onChangeText={(text) => this.setState({text})}
+                     onChangeText={(roomCode) => this.setState({roomCode})}
                      underlineColorAndroid='#fff'
-                     placeholder='GAY420'
-                     placeholderTextColor="#fff"
+                     placeholder='What is the Room #?'
+                     placeholderTextColor="#eee"
          />
          <TextInput style={styles.Input}
-                    onChangeText={(text) => this.setState({text})}
+                    onChangeText={(username) => this.setState({username})}
                     underlineColorAndroid='#fff'
-                    placeholder='JohnyDoe'
-                    placeholderTextColor="#fff"
+                    placeholder='Provide a username'
+                    placeholderTextColor="#eee"
         />
-         <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute2(e)}}>
+         <TouchableHighlight style={styles.button} onPress={e => {this.goToLobby(e)}}>
              <Text style={styles.btnText}>JOIN</Text>
+         </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={e => {this.goToHome(e)}}>
+             <Text style={styles.btnText}>GO HOME</Text>
          </TouchableHighlight>
         </View>
       </View>
@@ -57,7 +108,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   header: {
-    flex: 3,
+    flex: 2,
     textAlign: 'center',
     alignSelf:'center',
     fontSize: 60,
@@ -89,7 +140,8 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 22,
-    marginTop: 8,
+    marginTop: 10,
+    marginBottom: 10,
     textAlign: 'center',
     color: '#fff'
   }
