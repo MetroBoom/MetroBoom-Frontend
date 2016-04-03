@@ -47,13 +47,13 @@ var Lobby  = React.createClass({
 
   componentDidMount: function () {
     var _this = this;
-    
+
     socket.on('musicList', function (list) {
       if (list.length === 0) {
         return;
       }
       console.log(list);
-      if (list[0].hasOwnProperty(musicName)) {
+      if (list[0].hasOwnProperty('musicName')) {
         var current = list[0].musicName + '.mp3';
         if (_this.state.isPlaying === false) {
           AudioPlayer.play(current);
@@ -62,7 +62,7 @@ var Lobby  = React.createClass({
       }
       _this.setState({songs: list});
     });
-    
+
     AsyncStorage
       .getItem("roomCode")
       .then(function (roomCode) {
