@@ -5,63 +5,52 @@ import React, {
   Image,
   Text,
   TouchableHighlight,
+  Navigator,
   View
 } from 'react-native';
 
 import Home from './App/Components/Home.js';
+import JoinRoom from './App/Components/JoinRoom.js';
+import Lobby from './App/Components/Lobby.js';
 
 class Metro extends Component {
-  render() {
+  render () {
     return (
-      <View style={styles.container}>
-        <Home></Home>
-      </View>
+      <Navigator initialRoute={{id: 'Home', name: 'Home'}} renderScene={this.renderScene}
+        configureScene={(route) => {
+          if (route.sceneConfig) {
+            return route.sceneConfig;
+          }
+          return Navigator.SceneConfigs.FloatFromRight;
+        }}
+      />
     );
   }
+  renderScene (route, navigator){
+    switch (route.id) {
+      case 'Home':
+        return (<Home navigator={navigator} />);
+      case 'JoinRoom':
+        return (<JoinRoom navigator={navigator} />);
+      case 'Lobby':
+        return (<Lobby navigator={navigator} />);
+
+    }
+  }
 }
-
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover'
-  },
-
-  button: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    textAlign: 'center',
-    backgroundColor:'rgb(153, 0, 255)',
-    color: '#fff'
-  },
-
-  join:{
-    backgroundColor: '#9900ff',
-  },
-
   container: {
+    backgroundColor: '#c72a7e',
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0.1,0,0,0.1)',
-  },
-  headerImg: {
-    fontFamily: 'Raleway-Bold',
-    flex: 2,
-    fontSize: 20,
-    textAlign: 'center',
-    backgroundColor: '#9900ff'
-    //margin: 10,
-  },
-  create: {
-    fontFamily: 'Raleway-Bold',
-    //flex: 1,
-    fontSize: 20,
-    textAlign: 'center',
-    backgroundColor: '#9900ff',
-    alignSelf: 'stretch',
-    //marginBottom: 5,
-  },
+    flexDirection: 'column'
+  }
 });
-
 AppRegistry.registerComponent('Metro', () => Metro);
+
+// render() {
+//   return (
+//     <View style={styles.container}>
+//       <Home></Home>
+//     </View>
+//   );
+// }

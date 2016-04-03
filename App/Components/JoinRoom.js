@@ -8,11 +8,11 @@ import React, {
   View
 } from 'react-native';
 
-class Home extends Component {
+class JoinRoom extends Component {
   changeRoute (row){
     this.props.navigator.push({
-      id: 'JoinRoom',
-      name: 'JoinRoom'
+      id: 'Home',
+      name: 'Home'
     });
   }
 
@@ -23,20 +23,10 @@ class Home extends Component {
     });
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
-        <Image style={styles.header}
-           source={require('./../../assets/Logo.png')}>
-        </Image>
-        <View style={styles.buttons}>
-          <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute(e)}}>
-              <Text style={styles.btnText}>JOIN A ROOM</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.button2} onPress={e => {this.changeRoute2(e)}}>
-              <Text style={styles.btnText}>CREATE A ROOM</Text>
-          </TouchableHighlight>
-        </View>
+        <Text>Join Room</Text>
       </View>
     );
   }
@@ -45,8 +35,7 @@ class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#c72a7e',
+    flexDirection: 'column'
   },
   header: {
     flex: 2,
@@ -89,4 +78,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Home;
+export default JoinRoom;
