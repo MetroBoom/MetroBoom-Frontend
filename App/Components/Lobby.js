@@ -94,19 +94,26 @@ var Lobby  = React.createClass({
     });
 
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.text}>ROOM CODE: GAY420</Text>
           <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute2(e)}}>
             <Text style={styles.text2}>+</Text>
           </TouchableHighlight>
         </View>
-        <ScrollView style={styles.container}
+        <ScrollView style={styles.scrollContainer}
                     onResponderMove={()=>{console.log('outer responding');}}
                     scrollEnabled={true}>
           {songsList}
         </ScrollView>
         <View style={styles.footer}>
+          <View style={styles.activeSong}>
+            <View style={styles.activeInfo}>
+              <Text style={styles.name}>Current Song</Text>
+              <Text style={styles.artist}>Current Artist</Text>
+              <Text style={styles.album}>Current Album</Text>
+            </View>
+          </View>
           <TouchableHighlight style={styles.playContain}>
             <Image style={styles.play}
                    source={require('./../../assets/Play.png')}
@@ -125,6 +132,9 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 488,
     flexDirection: 'column'
+  },
+  scrollContainer: {
+    flex: 20
   },
   text: {
     color: '#fff',
@@ -196,6 +206,22 @@ const styles = StyleSheet.create({
     borderColor: '#DDD',
     flexDirection: 'row'
   },
+  activeSong: {
+    flex: 1,
+    backgroundColor: '#fff',
+    color: '#000',
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#000',
+    alignItems: 'center'
+  },
+  activeInfo: {
+    flex: 3,
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    alignSelf: 'flex-start',
+    paddingLeft: 20
+  },
   info: {
     flex: 3,
     alignItems: 'flex-start',
@@ -204,9 +230,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   footer: {
-    flex: 2,
+    flex: 6,
     height: 50,
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#c72a7e'
   },
 
