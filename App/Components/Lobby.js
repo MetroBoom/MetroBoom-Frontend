@@ -123,6 +123,7 @@ var Lobby  = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: 488,
     flexDirection: 'column'
   },
   text: {
