@@ -1,4 +1,5 @@
 import React, {
+  AsyncStorage, 
   Component,
   StyleSheet,
   Image,
@@ -10,66 +11,47 @@ import React, {
   StatusBar
 } from 'react-native';
 
+import {socket} from '../socket.js';
+
 var ProgressBar = require('ProgressBarAndroid');
 
 var Lobby  = React.createClass({
+  
   getInitialState: function () {
     return {
-     songs: [
-       {
-         name: 'Alright',
-         artist: 'Kendrick Lamar',
-         album: 'To Pimp A Butterfly',
-         isLoading: true
-       },
-       {
-         name: 'Nas is Like',
-         artist: 'Nas',
-         album: 'It was Written',
-         isLoading: false
-       },
-       {
-         name: 'Izzo',
-         artist: 'Jay-Z',
-         album: 'The Blueprint',
-         isLoading: false
-       },
-       {
-         name: 'Joey BadA$$',
-         artist: 'Christ Conscience',
-         album: 'B4.Da.BadA$$',
-         isLoading: false
-       },
-       {
-         name: 'Curren$y',
-         artist: 'Winning',
-         album: 'Cathedral',
-         isLoading: false
-       },
-       {
-         name: 'Da Mob',
-         artist: 'Li\'l Wayne',
-         album: 'Tha Carter 2',
-         isLoading: false
-       },
-       {
-         name: 'Hustla Music',
-         artist: 'Li\'l Wayne',
-         album: 'Tha Carter 2',
-         isLoading: false
-       }
-     ]
+     roomCode: "", 
+     songs: []
     };
   },
-
-  changeRoute: function (row){
-    this.props.navigator.push({
-      id: 'JoinRoom',
-      name: 'JoinRoom'
-    });
+    
+  getMusicListing: function () {
+    socket.emit("musicListing", function (musicList) {
+        var musicListMapped = musicList.map(function (musicObj) {
+            return {
+              id: musicObj.id,
+              name: musicObj.musicName, 
+              torrentLink: musicObj.torrentLink,
+              username: musicObj.username,
+              voteCount: musicObj.voteCount,
+              isLoading: false
+            };
+        });
+        this.setState(musicListMapped);
+    })
+  },
+  
+  componentDidMount: function () {
+    var _this = this;
+    AsyncStorage
+      .getItem("roomCode")
+      .then(function (roomCode) {
+        _this.setState({roomCode: roomCode});
+      });
+      
+    this.getMusicListing();
   },
 
-  changeRoute2: function (row){
+  addMusic: function (row){
     this.props.navigator.push({
       id: 'UserMusic',
       name: 'UserMusic'
@@ -79,7 +61,7 @@ var Lobby  = React.createClass({
   render: function () {
     var songsList = this.state.songs.map((song, key) => {
       var progress;
-      if(song.isLoading) {
+      if (song.isLoading) {
         progress = <ProgressBar color="rgb(153,0,255)" styleAttr="Normal" />;
       }
 
@@ -98,8 +80,9 @@ var Lobby  = React.createClass({
               key={key}>
           <View style={styles.info}>
             <Text style={styles.name}>{song.name}</Text>
-            <Text style={styles.artist}>{song.artist}</Text>
-            <Text style={styles.album}>{song.album}</Text>
+            <Text style={styles.artist}>{song.username}</Text>
+            <Text style={styles.album}>{song.voteCount}</Text>
+            <Text style={styles.album}>{song.torrentLink}</Text>
             {playing}
           </View>
           <TouchableHighlight>
@@ -126,8 +109,8 @@ var Lobby  = React.createClass({
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.text}>ROOM CODE: GAY420</Text>
-          <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute2(e)}}>
+          <Text style={styles.text}>ROOM CODE: {this.state.roomCode}</Text>
+          <TouchableHighlight style={styles.button} onPress={e => {this.addMusic(e)}}>
             <Text style={styles.text2}>+</Text>
           </TouchableHighlight>
         </View>
