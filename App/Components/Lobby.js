@@ -6,9 +6,11 @@ import React, {
   Navigator,
   TouchableHighlight,
   View,
-  ScrollView
+  ScrollView,
+  StatusBar
 } from 'react-native';
 
+var ProgressBar = require('ProgressBarAndroid');
 
 var Lobby  = React.createClass({
   getInitialState: function () {
@@ -17,37 +19,44 @@ var Lobby  = React.createClass({
        {
          name: 'Alright',
          artist: 'Kendrick Lamar',
-         album: 'To Pimp A Butterfly'
+         album: 'To Pimp A Butterfly',
+         isLoading: true
        },
        {
          name: 'Nas is Like',
          artist: 'Nas',
-         album: 'It was Written'
+         album: 'It was Written',
+         isLoading: false
        },
        {
          name: 'Izzo',
          artist: 'Jay-Z',
-         album: 'The Blueprint'
+         album: 'The Blueprint',
+         isLoading: false
        },
        {
          name: 'Joey BadA$$',
          artist: 'Christ Conscience',
-         album: 'B4.Da.BadA$$'
+         album: 'B4.Da.BadA$$',
+         isLoading: false
        },
        {
          name: 'Curren$y',
          artist: 'Winning',
-         album: 'Cathedral'
+         album: 'Cathedral',
+         isLoading: false
        },
        {
          name: 'Da Mob',
          artist: 'Li\'l Wayne',
-         album: 'Tha Carter 2'
+         album: 'Tha Carter 2',
+         isLoading: false
        },
        {
          name: 'Hustla Music',
          artist: 'Li\'l Wayne',
-         album: 'Tha Carter 2'
+         album: 'Tha Carter 2',
+         isLoading: false
        }
      ]
     };
@@ -69,6 +78,21 @@ var Lobby  = React.createClass({
 
   render: function () {
     var songsList = this.state.songs.map((song, key) => {
+      var progress;
+      if(song.isLoading) {
+        progress = <ProgressBar color="rgb(153,0,255)" styleAttr="Normal" />;
+      }
+
+      var playing;
+      var activeSong;
+      if(song.name === 'Izzo'){
+        activeSong = song;
+      }
+
+      if(activeSong === song) {
+        playing = <ProgressBar color="rgb(153,0,255)" styleAttr="Horizontal" />;
+      }
+
       return (
         <View style={styles.row}
               key={key}>
@@ -76,6 +100,7 @@ var Lobby  = React.createClass({
             <Text style={styles.name}>{song.name}</Text>
             <Text style={styles.artist}>{song.artist}</Text>
             <Text style={styles.album}>{song.album}</Text>
+            {playing}
           </View>
           <TouchableHighlight>
             <Image style={styles.arrows}
@@ -89,6 +114,11 @@ var Lobby  = React.createClass({
             >
             </Image>
           </TouchableHighlight>
+          <View style={styles.progressbar}>{progress}</View>
+          <StatusBar
+            backgroundColor="rgb(153,0,255)"
+            barStyle="light-content"
+          />
         </View>
       );
     });
@@ -242,6 +272,11 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
+  },
+
+  progressbar: {
+    flex: 1,
+    alignSelf: 'center'
   }
 });
 
