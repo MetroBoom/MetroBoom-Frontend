@@ -10,12 +10,10 @@ import React, {
   StatusBar
 } from 'react-native';
 
-var ProgressBar = require('ProgressBarAndroid');
-
-var Lobby  = React.createClass({
+var UserMusic  = React.createClass({
   getInitialState: function () {
     return {
-     songs: [
+     userSongs: [
        {
          name: 'Alright',
          artist: 'Kendrick Lamar',
@@ -64,34 +62,13 @@ var Lobby  = React.createClass({
 
   changeRoute: function (row){
     this.props.navigator.push({
-      id: 'JoinRoom',
-      name: 'JoinRoom'
-    });
-  },
-
-  changeRoute2: function (row){
-    this.props.navigator.push({
-      id: 'UserMusic',
-      name: 'UserMusic'
+      id: 'Lobby',
+      name: 'Lobby'
     });
   },
 
   render: function () {
-    var songsList = this.state.songs.map((song, key) => {
-      var progress;
-      if(song.isLoading) {
-        progress = <ProgressBar color="rgb(153,0,255)" styleAttr="Normal" />;
-      }
-
-      var playing;
-      var activeSong;
-      if(song.name === 'Izzo'){
-        activeSong = song;
-      }
-
-      if(activeSong === song) {
-        playing = <ProgressBar color="rgb(153,0,255)" styleAttr="Horizontal" />;
-      }
+    var songsList = this.state.userSongs.map((song, key) => {
 
       return (
         <View style={styles.row}
@@ -100,7 +77,6 @@ var Lobby  = React.createClass({
             <Text style={styles.name}>{song.name}</Text>
             <Text style={styles.artist}>{song.artist}</Text>
             <Text style={styles.album}>{song.album}</Text>
-            {playing}
           </View>
           <TouchableHighlight>
             <Image style={styles.arrows}
@@ -108,13 +84,6 @@ var Lobby  = React.createClass({
             >
             </Image>
           </TouchableHighlight>
-          <TouchableHighlight>
-            <Image style={styles.arrows}
-                   source={require('./../../assets/DownVote.png')}
-            >
-            </Image>
-          </TouchableHighlight>
-          <View style={styles.progressbar}>{progress}</View>
           <StatusBar
             backgroundColor="rgb(153,0,255)"
             barStyle="light-content"
@@ -126,10 +95,7 @@ var Lobby  = React.createClass({
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.text}>ROOM CODE: GAY420</Text>
-          <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute2(e)}}>
-            <Text style={styles.text2}>+</Text>
-          </TouchableHighlight>
+          <Text style={styles.text}>Select Songs to Add</Text>
         </View>
         <ScrollView style={styles.scrollContainer}
                     onResponderMove={()=>{console.log('outer responding');}}
@@ -137,18 +103,8 @@ var Lobby  = React.createClass({
           {songsList}
         </ScrollView>
         <View style={styles.footer}>
-          <View style={styles.activeSong}>
-            <View style={styles.activeInfo}>
-              <Text style={styles.name}>Current Song</Text>
-              <Text style={styles.artist}>Current Artist</Text>
-              <Text style={styles.album}>Current Album</Text>
-            </View>
-          </View>
-          <TouchableHighlight style={styles.playContain}>
-            <Image style={styles.play}
-                   source={require('./../../assets/Play.png')}
-            >
-          </Image>
+          <TouchableHighlight style={styles.playContain} onPress={e => {this.changeRoute(e)}}>
+            <Text style={styles.textDone}>Done</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -171,9 +127,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     flex: 2,
     fontWeight: 'bold',
-    textAlign: 'left',
+    textAlign: 'center',
     marginLeft: 10,
     marginTop: 6
+  },
+  textDone: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   text2: {
     color: '#fff',
@@ -261,7 +222,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   footer: {
-    flex: 6,
+    flex: 3,
     height: 50,
     flexDirection: 'column',
     backgroundColor: '#c72a7e'
@@ -273,11 +234,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
   },
-
-  progressbar: {
-    flex: 1,
-    alignSelf: 'center'
-  }
 });
 
-export default Lobby;
+export default UserMusic;

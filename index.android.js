@@ -12,6 +12,7 @@ import React, {
 import Home from './App/Components/Home.js';
 import JoinRoom from './App/Components/JoinRoom.js';
 import Lobby from './App/Components/Lobby.js';
+import UserMusic from './App/Components/UserMusic.js';
 
 class Metro extends Component {
   render () {
@@ -34,6 +35,8 @@ class Metro extends Component {
         return (<JoinRoom navigator={navigator} />);
       case 'Lobby':
         return (<Lobby navigator={navigator} />);
+      case 'UserMusic':
+        return (<UserMusic navigator={navigator} />);
 
     }
   }
