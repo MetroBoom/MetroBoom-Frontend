@@ -27,7 +27,7 @@ class Lobby extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Join Room</Text>
+        <Text>Lobby</Text>
       </View>
     );
   }

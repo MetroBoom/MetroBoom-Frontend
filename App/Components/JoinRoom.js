@@ -3,6 +3,7 @@ import React, {
   StyleSheet,
   Image,
   Text,
+  TextInput,
   Navigator,
   TouchableHighlight,
   View
@@ -26,7 +27,19 @@ class JoinRoom extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Join Room</Text>
+        <Text style={styles.header}>LETS MAKE THE ROOM BOOM</Text>
+        <View style={styles.form}>
+          <Text style={styles.formText}>INPUT ROOM CODE</Text>
+          <TextInput style={styles.Input}
+                     onChangeText={(text) => this.setState({text})}
+                     underlineColorAndroid='#fff'
+                     placeholder='GAY420'
+                     placeholderTextColor="#fff"
+         />
+         <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute2(e)}}>
+             <Text style={styles.btnText}>JOIN</Text>
+         </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -35,45 +48,45 @@ class JoinRoom extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   header: {
-    flex: 2,
-    marginTop: 100,
-    height: 10,
-    width: 350,
-    resizeMode: 'contain',
-    flexDirection: 'row'
+    flex: 3,
+    textAlign: 'center',
+    alignSelf:'center',
+    fontSize: 60,
+    fontWeight: 'bold',
+    flexDirection: 'row',
+    color: '#fff',
+    backgroundColor: '#ffd200'
   },
-  buttons: {
-    flex: 2,
-    flexDirection: 'column',
-    justifyContent: 'center',
+  form: {
+    flex: 3,
+    backgroundColor: '#b161fc'
   },
-  button: {
+  Input:{
+    color: '#fff',
+    fontSize: 20,
+    marginBottom: 40,
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
+  formText: {
     flex: 1,
     fontSize: 25,
     textAlign: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#9238e1',
     color: '#fff'
   },
-  button2: {
-    flex: 1,
-    fontSize: 25,
+  button: {
+    flex: .3,
     textAlign: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#b161fc',
+    backgroundColor: '#9139e3',
     color: '#fff'
   },
   btnText: {
-    flex: 1,
-    fontSize: 25,
-    marginTop: 40,
+    fontSize: 22,
+    marginTop: 8,
     textAlign: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
     color: '#fff'
   }
 });
