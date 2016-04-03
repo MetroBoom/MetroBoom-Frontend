@@ -7,7 +7,7 @@ import React, {
   TextInput,
   Navigator,
   TouchableHighlight,
-  View, 
+  View,
   AsyncStorage
 } from 'react-native';
 
@@ -20,7 +20,7 @@ var io = require('socket.io-client/socket.io') ,
     });
 
 class JoinRoom extends Component {
-  
+
   constructor (props) {
     super(props);
     this.state = {
@@ -28,7 +28,7 @@ class JoinRoom extends Component {
       roomCode: ""
     };
   }
-  
+
   goToHome (row){
     this.props.navigator.push({
       id: 'Home',
@@ -37,21 +37,21 @@ class JoinRoom extends Component {
   }
 
   goToLobby (row){
-    if (typeof this.state.roomCode !== "string" || 
-        typeof this.state.username !== "string" || 
-        this.state.roomCode.length === 0 || 
+    if (typeof this.state.roomCode !== "string" ||
+        typeof this.state.username !== "string" ||
+        this.state.roomCode.length === 0 ||
         this.state.username.length === 0) {
       Alert.alert(
         'Invalid roomCode and username',
         'You provided an invalid roomCode and/or username');
-    } 
+    }
     else {
 
         socket.emit("joinRoom", {
           roomName: this.state.roomCode,
           username: this.state.username
         }, function (data) {
-          if (typeof data === "object" && 
+          if (typeof data === "object" &&
               data.hasOwnProperty('error')) {
             Alert.alert('Error', data.error);
             return;
