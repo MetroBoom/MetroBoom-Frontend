@@ -49,6 +49,9 @@ var Lobby  = React.createClass({
     var _this = this;
     
     socket.on('musicList', function (list) {
+      if (list.length === 0) {
+        return;
+      }
       var current = list[0].musicName + '.mp3';
       if (_this.state.isPlaying === false) {
         AudioPlayer.play(current);
