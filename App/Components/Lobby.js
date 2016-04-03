@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   header: {
-    flex: 1.5,
+    flex: 2,
     height: 40,
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   footer: {
-    flex: 1,
+    flex: 2,
     height: 40,
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
