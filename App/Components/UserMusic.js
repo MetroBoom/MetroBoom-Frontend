@@ -69,26 +69,25 @@ var UserMusic  = React.createClass({
 
   render: function () {
     var songsList = this.state.userSongs.map((song, key) => {
-
       return (
-        <View style={styles.row}
-              key={key}>
-          <View style={styles.info}>
-            <Text style={styles.name}>{song.name}</Text>
-            <Text style={styles.artist}>{song.artist}</Text>
-            <Text style={styles.album}>{song.album}</Text>
+        <TouchableHighlight>
+          <View style={styles.row}
+                key={key}>
+            <View style={styles.info}>
+              <Text style={styles.name}>{song.name}</Text>
+              <Text style={styles.artist}>{song.artist}</Text>
+              <Text style={styles.album}>{song.album}</Text>
+            </View>
+              <Image style={styles.play}
+                     source={require('./../../assets/Selected.png')}
+              >
+              </Image>
+            <StatusBar
+              backgroundColor="rgb(153,0,255)"
+              barStyle="light-content"
+            />
           </View>
-          <TouchableHighlight>
-            <Image style={styles.arrows}
-                   source={require('./../../assets/UpVote.png')}
-            >
-            </Image>
-          </TouchableHighlight>
-          <StatusBar
-            backgroundColor="rgb(153,0,255)"
-            barStyle="light-content"
-          />
-        </View>
+        </TouchableHighlight>
       );
     });
 
@@ -138,17 +137,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20
   },
-  arrows: {
+  play: {
     flex: 1,
-    alignItems: 'flex-end',
     flexDirection: 'row',
-    alignSelf: 'flex-end',
     height: 80,
     width: 80,
-    marginTop: 18,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    alignItems: 'center'
+    marginTop: 10,
+    alignItems: 'center',
+    alignSelf: 'center'
   },
   header: {
     flex: 2,
