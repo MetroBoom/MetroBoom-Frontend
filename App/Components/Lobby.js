@@ -6,64 +6,51 @@ import React, {
   Navigator,
   TouchableHighlight,
   View,
-  ListView
+  ScrollView
 } from 'react-native';
 
 
 var Lobby  = React.createClass({
   getInitialState: function () {
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {
-     dataSource: ds.cloneWithRows(['row 1', 'row 2', 'row3', 'row4', 'row5', 'row6']),
+     songs: [
+       {
+         name: 'Alright',
+         artist: 'Kendrick Lamar',
+         album: 'To Pimp A Butterfly'
+       },
+       {
+         name: 'Nas is Like',
+         artist: 'Nas',
+         album: 'It was Written'
+       },
+       {
+         name: 'Izzo',
+         artist: 'Jay-Z',
+         album: 'The Blueprint'
+       },
+       {
+         name: 'Joey BadA$$',
+         artist: 'Christ Conscience',
+         album: 'B4.Da.BadA$$'
+       },
+       {
+         name: 'Curren$y',
+         artist: 'Winning',
+         album: 'Cathedral'
+       },
+       {
+         name: 'Da Mob',
+         artist: 'Li\'l Wayne',
+         album: 'Tha Carter 2'
+       },
+       {
+         name: 'Hustla Music',
+         artist: 'Li\'l Wayne',
+         album: 'Tha Carter 2'
+       }
+     ]
     };
-  },
-
-  renderHeader: function () {
-    return (
-      <View style={styles.header}>
-        <Text style={styles.text}>ROOM CODE: GAY420</Text>
-        <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute2(e)}}>
-          <Text style={styles.text2}>+</Text>
-        </TouchableHighlight>
-      </View>
-    );
-  },
-
-  renderRow: function () {
-    return (
-      <View style={styles.row}>
-        <View style={styles.info}>
-          <Text style={styles.name}>Song Name</Text>
-          <Text style={styles.artist}>Artist</Text>
-          <Text style={styles.album}>Album</Text>
-        </View>
-        <TouchableHighlight>
-          <Image style={styles.arrows}
-                 source={require('./../../assets/UpVote.png')}
-          >
-          </Image>
-        </TouchableHighlight>
-        <TouchableHighlight>
-          <Image style={styles.arrows}
-                 source={require('./../../assets/DownVote.png')}
-          >
-          </Image>
-        </TouchableHighlight>
-      </View>
-    );
-  },
-
-  renderFooter: function () {
-    return (
-      <View style={styles.footer}>
-        <TouchableHighlight style={styles.playContain}>
-          <Image style={styles.play}
-                 source={require('./../../assets/Play.png')}
-          >
-        </Image>
-        </TouchableHighlight>
-      </View>
-    )
   },
 
   changeRoute: function (row){
@@ -81,14 +68,53 @@ var Lobby  = React.createClass({
   },
 
   render: function () {
+    var songsList = this.state.songs.map((song, key) => {
+      return (
+        <View style={styles.row}
+              key={key}>
+          <View style={styles.info}>
+            <Text style={styles.name}>{song.name}</Text>
+            <Text style={styles.artist}>{song.artist}</Text>
+            <Text style={styles.album}>{song.album}</Text>
+          </View>
+          <TouchableHighlight>
+            <Image style={styles.arrows}
+                   source={require('./../../assets/UpVote.png')}
+            >
+            </Image>
+          </TouchableHighlight>
+          <TouchableHighlight>
+            <Image style={styles.arrows}
+                   source={require('./../../assets/DownVote.png')}
+            >
+            </Image>
+          </TouchableHighlight>
+        </View>
+      );
+    });
+
     return (
-        <ListView
-          style={styles.container}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
-          renderHeader={this.renderHeader}
-          renderFooter={this.renderFooter}
-        />
+      <View>
+        <View style={styles.header}>
+          <Text style={styles.text}>ROOM CODE: GAY420</Text>
+          <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute2(e)}}>
+            <Text style={styles.text2}>+</Text>
+          </TouchableHighlight>
+        </View>
+        <ScrollView style={styles.container}
+                    onResponderMove={()=>{console.log('outer responding');}}
+                    scrollEnabled={true}>
+          {songsList}
+        </ScrollView>
+        <View style={styles.footer}>
+          <TouchableHighlight style={styles.playContain}>
+            <Image style={styles.play}
+                   source={require('./../../assets/Play.png')}
+            >
+          </Image>
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   }
 
@@ -164,7 +190,6 @@ const styles = StyleSheet.create({
     color: '#000'
   },
   row:{
-    height: 100,
     flex: 1,
     borderWidth: 1,
     borderColor: '#DDD',
