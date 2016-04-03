@@ -21,12 +21,15 @@ var Lobby  = React.createClass({
   getInitialState: function () {
     return {
      roomCode: "",
-     songs: []
+     songs: [],
+      isPlaying: false
     };
   },
 
   getMusicListing: function () {
+    var _this = this;
     socket.emit("musicListing", function (musicList) {
+        console.log(musicList);
         var musicListMapped = musicList.map(function (musicObj) {
             return {
               id: musicObj.id,
@@ -37,23 +40,31 @@ var Lobby  = React.createClass({
               isLoading: false
             };
         });
-        this.setState(musicListMapped);
+      console.log(musicList);
+      _this.setState(musicListMapped);
     })
   },
 
   componentDidMount: function () {
-    socket.on('musicListing', function (list) {
-      var current = list[0].musicName + '.mp3';
-      AudioPlayer.play(current);
-    });
     var _this = this;
+    
+    socket.on('musicList', function (list) {
+      var current = list[0].musicName + '.mp3';
+      if (_this.state.isPlaying === false) {
+        AudioPlayer.play(current);
+        _this.setState({isPlaying: true});
+      }
+      
+      _this.setState({songs: list});
+    });
+    
     AsyncStorage
       .getItem("roomCode")
       .then(function (roomCode) {
         _this.setState({roomCode: roomCode});
       });
 
-    this.getMusicListing();
+    _this.getMusicListing();
   },
 
   addMusic: function (row){

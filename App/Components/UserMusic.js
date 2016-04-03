@@ -10,12 +10,7 @@ import React, {
   StatusBar
 } from 'react-native';
 
-import {socketUrl} from '../config.js';
-
-var io = require('socket.io-client/socket.io') ,
-    socket = io(socketUrl, {
-      transports: ['websocket']
-    });
+import {socket} from '../socket.js';
 
 var UserMusic  = React.createClass({
   getInitialState: function () {
@@ -23,56 +18,56 @@ var UserMusic  = React.createClass({
      userSongs: [
        {
          name: 'dejavu',
-         artist: 'Kendrick Lamar',
-         album: 'To Pimp A Butterfly',
-         isLoading: true
+         artist: 'Big Sean',
+         album: 'Twenty88',
+         isLoading: false
        },
        {
          name: 'londonbridge',
-         artist: 'Nas',
-         album: 'It was Written',
+         artist: 'Big Sean',
+         album: 'Twenty88',
          isLoading: false
        },
        {
          name: 'marsoc',
-         artist: 'Jay-Z',
-         album: 'The Blueprint',
+         artist: 'Big Sean',
+         album: 'Twenty88',
          isLoading: false
        },
        {
          name: 'memoriesfaded',
-         artist: 'Christ Conscience',
-         album: 'B4.Da.BadA$$',
+         artist: 'Big Sean',
+         album: 'Twenty88',
          isLoading: false
        },
        {
          name: 'minutewarning',
-         artist: 'Winning',
-         album: 'Cathedral',
+         artist: 'Big Sean',
+         album: 'Twenty88',
          isLoading: false
        },
        {
          name: 'ontheway',
-         artist: 'Li\'l Wayne',
-         album: 'Tha Carter 2',
+         artist: 'Big Sean',
+         album: 'Twenty88',
          isLoading: false
        },
        {
          name: 'pushit',
-         artist: 'Li\'l Wayne',
-         album: 'Tha Carter 2',
+         artist: 'Big Sean',
+         album: 'Twenty88',
          isLoading: false
        },
        {
          name: 'selfish',
-         artist: 'Li\'l Wayne',
-         album: 'Tha Carter 2',
+         artist: 'Big Sean',
+         album: 'Twenty88',
          isLoading: false
        },
        {
          name: 'talkshow',
-         artist: 'Li\'l Wayne',
-         album: 'Tha Carter 2',
+         artist: 'Big Sean',
+         album: 'Twenty88',
          isLoading: false
        }
      ]
@@ -95,6 +90,7 @@ var UserMusic  = React.createClass({
   },
 
   onTouch: function (song) {
+    console.log(this.state.userSongs[song].name);
     socket.emit('addMusic', {
       torrentLink: this.sign(this.state.userSongs[song].name),
       musicName: this.state.userSongs[song].name
