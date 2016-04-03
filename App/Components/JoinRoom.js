@@ -41,7 +41,7 @@ class JoinRoom extends Component {
     }
     else {
         var _this = this;
-      
+
         socket.emit("joinRoom", {
           roomName: this.state.roomCode,
           username: this.state.username
@@ -51,9 +51,9 @@ class JoinRoom extends Component {
             Alert.alert('Error', data.error);
             return;
           } else {
-            AsyncStorage.setItem("username", this.state.username)
+            AsyncStorage.setItem("username", _this.state.username)
               .then(function () {
-                AsyncStorage.setItem("roomCode", this.state.roomCode);
+                AsyncStorage.setItem("roomCode", _this.state.roomCode);
               })
               .then(function () {
                 _this.props.navigator.push({
