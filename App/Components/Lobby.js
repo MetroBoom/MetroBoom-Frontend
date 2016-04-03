@@ -52,12 +52,14 @@ var Lobby  = React.createClass({
       if (list.length === 0) {
         return;
       }
-      var current = list[0].musicName + '.mp3';
-      if (_this.state.isPlaying === false) {
-        AudioPlayer.play(current);
-        _this.setState({isPlaying: true});
+      console.log(list);
+      if (list[0].hasOwnProperty(musicName)) {
+        var current = list[0].musicName + '.mp3';
+        if (_this.state.isPlaying === false) {
+          AudioPlayer.play(current);
+          _this.setState({isPlaying: true});
+        }
       }
-      
       _this.setState({songs: list});
     });
     
