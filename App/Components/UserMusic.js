@@ -10,6 +10,16 @@ import React, {
   StatusBar
 } from 'react-native';
 
+import {socketUrl} from '../config.js';
+import webtorrent from 'webtorrent';
+
+var io = require('socket.io-client/socket.io') ,
+    socket = io(socketUrl, {
+      transports: ['websocket']
+    });
+
+const torrentClient = new webtorrent();
+
 var UserMusic  = React.createClass({
   getInitialState: function () {
     return {
@@ -67,10 +77,33 @@ var UserMusic  = React.createClass({
     });
   },
 
+  seed: function (songData) {
+    function promiseExecutor(resolve, reject) {
+      torrentClient.seed(songData, null, resolve);
+    }
+    return new Promise(promiseExecutor);
+  },
+
+  sign: function (name) {
+    return `magnet:?xt=urn:${name}&dn=&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopentor.org%3A2710&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Ftracker.blackunicorn.xyz%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969`
+  },
+
+  onTouch: function (e) {
+    console.log(e);
+    socket.emit('addMusic', {
+      torrentLink: this.sign(e.name),
+      musicName: e.name
+    })
+    this.setState({
+      songsToAdd: songsToAdd.push(e)
+    })
+  },
+
+
   render: function () {
     var songsList = this.state.userSongs.map((song, key) => {
       return (
-        <TouchableHighlight>
+        <TouchableHighlight onPress={e => {this.onTouch(e)}}>
           <View style={styles.row}
                 key={key}>
             <View style={styles.info}>
