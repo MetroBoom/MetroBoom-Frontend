@@ -14,7 +14,7 @@ var Lobby  = React.createClass({
   getInitialState: function () {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {
-     dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+     dataSource: ds.cloneWithRows(['row 1', 'row 2', 'row3', 'row4', 'row5', 'row6']),
     };
   },
 
@@ -54,14 +54,16 @@ var Lobby  = React.createClass({
   },
 
   renderFooter: function () {
-    <View style={styles.footer}>
-      <TouchableHighlight>
-        <Image style={styles.play}
-               source={require('./../../assets/Play.png')}
-        >
-      </Image>
-      </TouchableHighlight>
-    </View>
+    return (
+      <View style={styles.footer}>
+        <TouchableHighlight style={styles.playContain}>
+          <Image style={styles.play}
+                 source={require('./../../assets/Play.png')}
+          >
+        </Image>
+        </TouchableHighlight>
+      </View>
+    )
   },
 
   changeRoute: function (row){
@@ -125,11 +127,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center'
   },
+  playContain:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   play:{
     flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
     alignSelf: 'center',
+    justifyContent: 'center',
     height: 80,
     width: 80,
     marginTop: 18,
@@ -156,6 +164,8 @@ const styles = StyleSheet.create({
     color: '#000'
   },
   row:{
+    height: 100,
+    flex: 1,
     borderWidth: 1,
     borderColor: '#DDD',
     flexDirection: 'row'
@@ -168,14 +178,14 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   footer: {
-    flex: 1.5,
+    flex: 1,
     height: 40,
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
   },
 
   player: {
-    flex: 1,
+    flex: .2,
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
   }

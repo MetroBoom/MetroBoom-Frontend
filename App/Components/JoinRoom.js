@@ -36,6 +36,12 @@ class JoinRoom extends Component {
                      placeholder='GAY420'
                      placeholderTextColor="#fff"
          />
+         <TextInput style={styles.Input}
+                    onChangeText={(text) => this.setState({text})}
+                    underlineColorAndroid='#fff'
+                    placeholder='JohnyDoe'
+                    placeholderTextColor="#fff"
+        />
          <TouchableHighlight style={styles.button} onPress={e => {this.changeRoute2(e)}}>
              <Text style={styles.btnText}>JOIN</Text>
          </TouchableHighlight>
