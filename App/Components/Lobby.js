@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 2,
-    height: 40,
+    height: 50,
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
   },
@@ -205,13 +205,14 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 2,
-    height: 40,
+    height: 50,
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
   },
 
   player: {
     flex: .2,
+    alignSelf: 'flex-end',
     flexDirection: 'row',
     backgroundColor: '#c72a7e'
   }
