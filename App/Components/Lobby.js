@@ -211,7 +211,6 @@ const styles = StyleSheet.create({
   activeSong: {
     flex: 1,
     backgroundColor: '#fff',
-    color: '#000',
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: '#000',
