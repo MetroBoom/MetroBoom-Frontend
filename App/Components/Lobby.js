@@ -104,7 +104,7 @@ var Lobby  = React.createClass({
           </View>
           <TouchableHighlight>
             <Image style={styles.arrows}
-                   source={require('../../assets/UpVote.png')}
+                   source={require('./../../assets/UpVote.png')}
             >
             </Image>
           </TouchableHighlight>
