@@ -32,9 +32,23 @@ var Lobby  = React.createClass({
   renderRow: function () {
     return (
       <View style={styles.row}>
-        <Text style={styles.name}>Song Name</Text>
-        <Text style={styles.artist}>Artist</Text>
-        <Text style={styles.album}>Album</Text>
+        <View style={styles.info}>
+          <Text style={styles.name}>Song Name</Text>
+          <Text style={styles.artist}>Artist</Text>
+          <Text style={styles.album}>Album</Text>
+        </View>
+        <TouchableHighlight>
+          <Image style={styles.arrows}
+                 source={require('./../../assets/UpVote.png')}
+          >
+          </Image>
+        </TouchableHighlight>
+        <TouchableHighlight>
+          <Image style={styles.arrows}
+                 source={require('./../../assets/DownVote.png')}
+          >
+          </Image>
+        </TouchableHighlight>
       </View>
     );
   },
@@ -94,6 +108,18 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginRight: 10
   },
+  arrows: {
+    flex: 1,
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    height: 80,
+    width: 80,
+    marginTop: 18,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    alignItems: 'center'
+  },
   header: {
     flex: 1.5,
     height: 40,
@@ -101,25 +127,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#c72a7e'
   },
   name: {
-    fontSize: 20,
-    color: '#000',
-    flexDirection: 'column'
+    fontSize: 18,
+    color: '#000'
   },
   artist: {
-    fontSize: 16,
-    color: '#000',
-    alignSelf: 'center'
+    fontSize: 12,
+    color: '#000'
   },
   album: {
-    fontSize: 16,
-    color: '#000',
-    alignSelf: 'flex-end'
+    fontSize: 12,
+    color: '#000'
   },
-  row: {
-    height: 34,
-    flexDirection: 'row',
+  row:{
     borderWidth: 1,
-    borderColor: '#DDD'
+    borderColor: '#DDD',
+    flexDirection: 'row'
+  },
+  info: {
+    flex: 3,
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    alignSelf: 'flex-start',
+    padding: 20,
   },
   footer: {
     flex: 1.5,
